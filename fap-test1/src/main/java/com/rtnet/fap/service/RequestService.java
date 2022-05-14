@@ -104,7 +104,7 @@ public class RequestService {
             // File entity
             StringBuffer fileData = new StringBuffer();
             String rootPath = "C:\\fap";
-            String fileName = "device_info_202204151507.csv";
+            String fileName = "fap1.txt";
             
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(rootPath + "\\" + fileName), "UTF-8"));
             System.out.println("File entity : " + rootPath + "\\" + fileName);
