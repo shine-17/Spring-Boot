@@ -46,7 +46,7 @@ public class ResponseController {
 	}
 	
 	@RequestMapping(value="/testForJson", method = RequestMethod.POST /*, produces = {MediaType.APPLICATION_JSON_VALUE} */)
-	public ResponseEntity<Resource> testForJson(MultipartFile file){
+	public ResponseEntity<List<MultipartFile>> testForJson(MultipartFile file){
 		try {
 			logger.info("testForJson/POST");
 
@@ -57,7 +57,10 @@ public class ResponseController {
 			}
 			System.out.println("file : " + file.getName());
 			
-			return ResponseEntity.ok().build();
+			List<MultipartFile> list = new ArrayList<MultipartFile>();
+			list.add(file);
+			
+			return ResponseEntity.ok().body(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
