@@ -2,14 +2,12 @@ package com.rtnet.fap.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,7 +23,6 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -83,9 +80,6 @@ public class RequestService {
         try {
             //httpPost.setHeader("Accept", "application/json"); // Accept : 클라이언트가 서버에게 받는 데이터 타입 (application/json 이면 json 타입만 받을 수 있으니 json 타입으로 보내라) 
             //httpPost.setHeader("Content-Type", "application/json; charset=UTF-8"); // Content-Type : 전송하는 데이터 타입
-
-        	BigInteger random = new BigInteger(256, new Random());
-        	StringBuffer boundary = new StringBuffer().append(random);
         	
             //httpPost.setHeader("Content-Type" ,"multipart/form-data; boundary=" + boundary);
 			
@@ -97,7 +91,7 @@ public class RequestService {
             // File entity
             StringBuffer fileData = new StringBuffer();
             String rootPath = "C:\\fap";
-            String fileName = "fap1.txt";
+            String fileName = "task1.txt";
             
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(rootPath + "\\" + fileName), "UTF-8"));
             System.out.println("File entity : " + rootPath + "\\" + fileName);
@@ -123,6 +117,7 @@ public class RequestService {
                     fileName)
                     .build();
             
+            //
             // File CRC Check
 //            FileCRC32Check fileCRC32Check = new FileCRC32Check();
 //            HashMap<File, Long> map = fileCRC32Check.getResult("C:\\fap");
