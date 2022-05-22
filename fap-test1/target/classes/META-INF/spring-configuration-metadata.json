@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "file.upload",
+      "type": "com.rtnet.fap.common.FileUploadProperties",
+      "sourceType": "com.rtnet.fap.common.FileUploadProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "file.upload.location",
+      "type": "java.lang.String",
+      "sourceType": "com.rtnet.fap.common.FileUploadProperties"
+    }
+  ],
+  "hints": []
+}

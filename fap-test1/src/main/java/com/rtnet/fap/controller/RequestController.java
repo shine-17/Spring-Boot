@@ -18,16 +18,16 @@ public class RequestController {
 	@Autowired
 	RequestService requestService;
 	
-	@RequestMapping(value = "/req/form")
-	public @ResponseBody String reqForm() {
-		logger.info("reqForm");
-		JsonNode node = requestService.requestHttpForm();
-		return node.toPrettyString();
-	}
+//	@RequestMapping(value = "/req/form")
+//	public @ResponseBody String reqForm() {
+//		logger.info("reqForm");
+//		JsonNode node = requestService.requestHttpForm();
+//		return node.toPrettyString();
+//	}
 	
-	@RequestMapping(value="/req/json")
+	@RequestMapping(value="/req/test")
     public @ResponseBody String reqJson(){
-		logger.info("reqJson");
+		logger.info("reqTest");
         JsonNode node = requestService.requestHttpJson();
         
         if(node != null)

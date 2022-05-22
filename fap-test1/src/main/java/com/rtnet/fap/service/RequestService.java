@@ -30,49 +30,46 @@ import com.rtnet.fap.common.FileCRC32Check;
 
 @Component
 public class RequestService {
-	public JsonNode requestHttpForm(){
-
-        HttpClient client = HttpClientBuilder.create().build();
-
-        HttpPost httpPost = new HttpPost("http://localhost:9001/testForForm");
-
-        try {
-
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-            
-            nameValuePairs.add(new BasicNameValuePair("Email", "youremail"));
-            nameValuePairs.add(new BasicNameValuePair("Passwd", "yourpassword"));
-            nameValuePairs.add(new BasicNameValuePair("accountType", "GOOGLE"));
-            nameValuePairs.add(new BasicNameValuePair("source", "Google-cURL-Example"));
-            nameValuePairs.add(new BasicNameValuePair("service", "ac2dm"));
-
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-            HttpResponse response = client.execute(httpPost);
-
-            if (response.getStatusLine().getStatusCode() == 200) {
-                ResponseHandler<String> handler = new BasicResponseHandler();
-                String body = handler.handleResponse(response);
-                System.out.println("[RESPONSE] requestHttpForm() " + body);
-
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode node = objectMapper.readTree(body);
-
-                return node;
-
-            } else {
-                System.out.println("response is error : " + response.getStatusLine().getStatusCode());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
+	
+//	public JsonNode requestHttpForm(){
+//        HttpClient client = HttpClientBuilder.create().build();
+//        HttpPost httpPost = new HttpPost("http://localhost:9001/testForForm");
+//
+//        try {
+//
+//            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+//            
+//            nameValuePairs.add(new BasicNameValuePair("Email", "youremail"));
+//            nameValuePairs.add(new BasicNameValuePair("Passwd", "yourpassword"));
+//            nameValuePairs.add(new BasicNameValuePair("accountType", "GOOGLE"));
+//            nameValuePairs.add(new BasicNameValuePair("source", "Google-cURL-Example"));
+//            nameValuePairs.add(new BasicNameValuePair("service", "ac2dm"));
+//
+//            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//
+//            HttpResponse response = client.execute(httpPost);
+//
+//            if (response.getStatusLine().getStatusCode() == 200) {
+//                ResponseHandler<String> handler = new BasicResponseHandler();
+//                String body = handler.handleResponse(response);
+//                System.out.println("[RESPONSE] requestHttpForm() " + body);
+//
+//                ObjectMapper objectMapper = new ObjectMapper();
+//                JsonNode node = objectMapper.readTree(body);
+//
+//                return node;
+//
+//            } else {
+//                System.out.println("response is error : " + response.getStatusLine().getStatusCode());
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
 	
 	public JsonNode requestHttpJson(){
-		//RestTemplate
-
 		//DefaultHttpClient는 deprecated 됐기 때문에 이러한 방식으로 client 생성
         HttpClient client = HttpClientBuilder.create().build(); // HttpClient 생성
         HttpPost httpPost = new HttpPost("http://localhost:9001/testForJson"); //POST 메소드 URL 생성
@@ -80,7 +77,6 @@ public class RequestService {
         try {
             //httpPost.setHeader("Accept", "application/json"); // Accept : 클라이언트가 서버에게 받는 데이터 타입 (application/json 이면 json 타입만 받을 수 있으니 json 타입으로 보내라) 
             //httpPost.setHeader("Content-Type", "application/json; charset=UTF-8"); // Content-Type : 전송하는 데이터 타입
-        	
             //httpPost.setHeader("Content-Type" ,"multipart/form-data; boundary=" + boundary);
 			
             // Test entity
@@ -94,7 +90,7 @@ public class RequestService {
             String fileName = "task1.txt";
             
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(rootPath + "\\" + fileName), "UTF-8"));
-            System.out.println("File entity : " + rootPath + "\\" + fileName);
+            System.out.println("File : " + rootPath + "\\" + fileName);
             
             char[] buf = new char[1024];
             int numRead = 0;
@@ -137,6 +133,9 @@ public class RequestService {
                 ResponseHandler<String> handler = new BasicResponseHandler();
                 String body = handler.handleResponse(response);
                 System.out.println("[RESPONSE] requestHttpJson() " + body);
+                
+                // File Upload 구현 -> CRC32 체크 후 파일 동기화(추가,수정,삭제) 구현
+                
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode node = objectMapper.readTree(body);
